@@ -3,6 +3,12 @@
 This project is an implementation of Unscented Kalman Filter. It is used to estimate the state of a moving object of interest with noisy lidar and radar measurements.
 Correct implementation should pass the following criteria: px, py, vx, and vy RMSE should be less than or equal to the values [.09, .10, .40, .30]. 
 
+UKF
+
+* allows to take noisy measurement data as input and provide a smooth position and velocity estimation of dynamic objects without introducing a delay
+* provides estimation of the orientation and yaw rate of dynamic objects using sensors that does not directly provide this information
+* provides information of how precise the estimation
+
 ## Data input and output
 
 INPUT: values provided by the simulator to the c++ program
