@@ -23,7 +23,12 @@ public:
   * A helper method to calculate RMSE.
   */
   VectorXd CalculateRMSE(const vector<VectorXd> &estimations, const vector<VectorXd> &ground_truth);
-
+  
+  
+  /**
+  * A helper method to keep angle values between -pi...pi.
+  */
+  double Truncate2Pi(double v);
 };
 
 #endif /* TOOLS_H_ */

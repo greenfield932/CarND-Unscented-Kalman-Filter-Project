@@ -106,7 +106,7 @@ int main()
     	  ground_truth.push_back(gt_values);
           
           //Call ProcessMeasurment(meas_package) for Kalman filter
-    	  ukf.ProcessMeasurement(meas_package);    	  
+          ukf.ProcessMeasurement(meas_package);    	  
 
     	  //Push the current estimated x,y positon from the Kalman filter's state vector
 
@@ -117,6 +117,7 @@ int main()
     	  double v  = ukf.x_(2);
     	  double yaw = ukf.x_(3);
 
+          //cout<<"Prediction:"<<p_x<<' '<<p_y<<' '<<v<<' '<<yaw<<endl; 
     	  double v1 = cos(yaw)*v;
     	  double v2 = sin(yaw)*v;
 
@@ -137,7 +138,7 @@ int main()
           msgJson["rmse_vx"] = RMSE(2);
           msgJson["rmse_vy"] = RMSE(3);
           auto msg = "42[\"estimate_marker\"," + msgJson.dump() + "]";
-          // std::cout << msg << std::endl;
+           //std::cout << msg << std::endl;
           ws.send(msg.data(), msg.length(), uWS::OpCode::TEXT);
 	  
         }

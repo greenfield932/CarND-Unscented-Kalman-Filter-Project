@@ -6,7 +6,7 @@
 #include <vector>
 #include <string>
 #include <fstream>
-
+#include "tools.h"
 using Eigen::MatrixXd;
 using Eigen::VectorXd;
 
@@ -68,6 +68,37 @@ public:
   double lambda_;
 
 
+  int n_sig_;
+  
+  int n_z_radar_;
+  
+  int n_z_lidar_;   
+  
+  Tools tools_;
+   
+  MatrixXd R_radar_;
+  
+  MatrixXd R_lidar_;
+  
+  double NIS_radar_;
+
+  double NIS_lidar_;
+  
+  enum StateIdx{
+    PX,
+    PY,
+    V,
+    PSI,
+    PSIDOT,
+    NUA,
+    NUPSI
+  };
+
+  enum RadarMeasurementIdx{
+    RHO,
+    PHI,
+    RHODOT
+  };
   /**
    * Constructor
    */
