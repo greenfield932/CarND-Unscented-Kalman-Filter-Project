@@ -9,6 +9,23 @@ UKF
 * provides estimation of the orientation and yaw rate of dynamic objects using sensors that does not directly provide this information
 * provides information of how precise the estimation
 
+## Results
+
+[image1]: ./images/output_video.gif
+[image2]: ./images/nis_radar.png
+[image3]: ./images/nis_lidar.png
+
+Example of the filter performance on the simulator
+
+![alt text][image1]
+
+Final RMSE approximately [0.07 0.08 0.35 0.24]. Consistency check for the filter is based on Normalized Innovation Squared metric. Good results achieved with the following noise values:
+process noise standard deviation longitudinal acceleration 2 m/s^2, process noise standard deviation yaw acceleration PI/8 rad/s^2.
+
+![alt text][image2]
+
+![alt text][image3]
+
 ## Data input and output
 
 INPUT: values provided by the simulator to the c++ program

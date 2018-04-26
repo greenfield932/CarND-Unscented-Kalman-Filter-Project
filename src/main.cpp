@@ -38,7 +38,10 @@ int main()
   vector<VectorXd> estimations;
   vector<VectorXd> ground_truth;
 
-  h.onMessage([&ukf,&tools,&estimations,&ground_truth](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode) {
+  ofstream out;
+  out.open("nis.txt", std::ofstream::out);
+  int cnt = 0;
+  h.onMessage([&cnt, &out, &ukf,&tools,&estimations,&ground_truth](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode) {
     // "42" at the start of the message means there's a websocket message event.
     // The 4 signifies a websocket message
     // The 2 signifies a websocket event
@@ -112,10 +115,10 @@ int main()
 
     	  VectorXd estimate(4);
 
-    	  double p_x = ukf.x_(0);
-    	  double p_y = ukf.x_(1);
-    	  double v  = ukf.x_(2);
-    	  double yaw = ukf.x_(3);
+    	  double p_x = ukf.StateVector()(0);
+    	  double p_y = ukf.StateVector()(1);
+    	  double v  = ukf.StateVector()(2);
+    	  double yaw = ukf.StateVector()(3);
 
           //cout<<"Prediction:"<<p_x<<' '<<p_y<<' '<<v<<' '<<yaw<<endl; 
     	  double v1 = cos(yaw)*v;
@@ -137,6 +140,10 @@ int main()
           msgJson["rmse_y"] =  RMSE(1);
           msgJson["rmse_vx"] = RMSE(2);
           msgJson["rmse_vy"] = RMSE(3);
+          //out<<RMSE(0)<<' '<<RMSE(1)<<' '<<RMSE(2)<<' '<<RMSE(3)<<endl;
+          if(cnt > 0)
+              out<<ukf.NisRadar()<<' '<<ukf.NisLidar()<<endl;
+          cnt++;
           auto msg = "42[\"estimate_marker\"," + msgJson.dump() + "]";
            //std::cout << msg << std::endl;
           ws.send(msg.data(), msg.length(), uWS::OpCode::TEXT);

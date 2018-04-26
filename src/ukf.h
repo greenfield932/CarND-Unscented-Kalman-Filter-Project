@@ -11,7 +11,6 @@ using Eigen::MatrixXd;
 using Eigen::VectorXd;
 
 class UKF {
-public:
 
   ///* initially set to false, set to true in first call of ProcessMeasurement
   bool is_initialized_;
@@ -99,6 +98,8 @@ public:
     PHI,
     RHODOT
   };
+  
+public:  
   /**
    * Constructor
    */
@@ -133,6 +134,12 @@ public:
    * @param meas_package The measurement at k+1
    */
   void UpdateRadar(MeasurementPackage meas_package);
+  
+  const VectorXd& StateVector() const;
+  
+  double NisRadar() const;
+  
+  double NisLidar() const;
 };
 
 #endif /* UKF_H */

@@ -25,10 +25,10 @@ UKF::UKF() {
   P_ = MatrixXd(5, 5);
 
   // Process noise standard deviation longitudinal acceleration in m/s^2
-  std_a_ = 1.5;
+  std_a_ = 2;
 
   // Process noise standard deviation yaw acceleration in rad/s^2
-  std_yawdd_ = 0.5;
+  std_yawdd_ = M_PI/8;
   
   //DO NOT MODIFY measurement noise values below these are provided by the sensor manufacturer.
   // Laser measurement noise standard deviation position1 in m
@@ -108,6 +108,10 @@ UKF::UKF() {
               0., pow(std_laspy_, 2.);
               
   Xsig_pred_ = MatrixXd(n_x_, n_sig_);
+  
+
+  NIS_lidar_ = 0.;
+  NIS_radar_ = 0.;
 }
 
 UKF::~UKF() {}
@@ -399,3 +403,16 @@ void UKF::UpdateRadar(MeasurementPackage meas_package) {
   NIS_radar_ = z_diff.transpose() * S.inverse() * z_diff;  
  
 }
+
+const VectorXd& UKF::StateVector() const{
+  return x_;
+}
+
+double UKF::NisRadar() const{
+  return NIS_radar_;
+}
+  
+double UKF::NisLidar() const{
+  return NIS_lidar_;
+}
+  
